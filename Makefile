@@ -7,7 +7,7 @@ SRC=src
 DEP=dependencies
 DATA=data
 GLMNET=$(DEP)/glmnet
-INCL= -N -I $(SRC) -I $(GLMNET)
+INCL= -N -p stats -I $(SRC) -I $(GLMNET)
 .PHONEY: all clean-all clean-postbuild glmnet sdist
 
 all: glmnet ATLSearchlight clean-postbuild

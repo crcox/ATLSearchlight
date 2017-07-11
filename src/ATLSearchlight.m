@@ -44,7 +44,7 @@ function [R] = ATLSearchlight(condition, subjects, varargin)
         perms = str2double(strsplit(p.Results.perms));
         permfile = p.Results.permutationindex;
         radius = str2double(p.Results.radius);
-        WRITE_PERM_INDEXES = logical(p.Results.WRITE_PERM_INDEXES);
+        WRITE_PERM_INDEXES = logical(str2double(p.Results.WRITE_PERM_INDEXES));
     else
         addpath('C:\Users\mbmhscc4\MATLAB\src\WholeBrain_RSA\src\');
         addpath('C:\Users\mbmhscc4\MATLAB\Toolboxes\glmnet');
@@ -77,7 +77,7 @@ function [R] = ATLSearchlight(condition, subjects, varargin)
     if WRITE_PERM_INDEXES
         save('permutation_indexes.mat', 'PERMS');
     end
-    
+
     fortran_error_log = fopen('fortran_error.log', 'w');
     for i = 1:NSUBJ
         s = subjects_set(i);
@@ -286,7 +286,7 @@ function [R] = ATLSearchlight(condition, subjects, varargin)
                 end
         end
     end
-    save('results.mat', 'R');
+    save(sprintf('results_%s_%d_%d.mat', condition, s, p), 'R');
     if PARALLEL
         delete(ppp);
     end
